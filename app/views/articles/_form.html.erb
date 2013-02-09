@@ -1,0 +1,59 @@
+<%= form_for(@article) do |f| %>
+  <% if @article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+      <ul>
+      <% @article.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="textfild">
+    <%= f.label 'Заголовок' %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="textarea">
+    <%= f.label 'Контент' %>
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label 'Тип' %>
+    <%= f.select :article_type_id, options_for_select= @article_types.collect {|p| [t(p.name, :scope => [:articles]), p.id] }, {:include_blank => ''} %>
+  </div>
+  <div class="field">
+    <%= f.label 'Срок годности' %>
+    <%= f.date_select :exp_date, :include_blank => true %>
+  </div>
+<table>
+<tr>
+<td>
+    <%= f.label 'Разрешить комментировать?' %>
+</td>
+<td>
+    <%= f.check_box :commentable %>
+</td>
+</tr>
+<tr>
+<td>
+    <%= f.label 'Опубликовать?' %>
+</td>
+<td>
+    <%= f.check_box :published %>
+</td>
+</tr>
+<tr>
+<td>
+    <%= f.label 'Зафиксировать?' %>
+</td>
+<td>
+    <%= f.check_box :fixed %>
+</td>
+</tr>
+</table>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

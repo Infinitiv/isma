@@ -1,0 +1,8 @@
+<p>
+<%= comment.content %>
+  <%= link_to(comment, confirm: 'Уверены?', method: :delete) do %>
+    <i class="icon-remove" title="Удалить"></i>
+  <% end %>
+<p class=postsubscript>Автор:&nbsp
+  <%= render :partial => "users/author", :object => comment.user %>
+<%= time_tag comment.created_at, :format => :short, :pubdate => true %>

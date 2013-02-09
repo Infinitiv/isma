@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @post_list.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_post_list_path(@post_list) %> |
+<%= link_to 'Back', post_lists_path %>

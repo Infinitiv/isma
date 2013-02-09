@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  post_list: 
+  division: 
+  parent_id: 1
+  user: 
+
+two:
+  name: MyString
+  post_list: 
+  division: 
+  parent_id: 1
+  user: 

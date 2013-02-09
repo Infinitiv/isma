@@ -1,0 +1,36 @@
+<%= link_to(edit_user_path(@user)) do %>
+  <i class='icon-pencil' title='Редактировать'></i>
+<% end %>&nbsp
+<%= link_to(users_path) do %>
+  <i class='icon-arrow-left' title='Назад'></i>
+<% end %>
+<p>
+<% if @user.profile.nil? %>
+<%= form_for(@profile) do |f| %>
+  <div class="field">
+    <%= f.label :first_name, 'Имя' %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :middle_name, 'Отчество' %><br />
+    <%= f.text_field :middle_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name, 'Фамилия' %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<% else %>
+  <b>Имя пользователя:</b>
+  <%= @profile.first_name + ' ' + @profile.last_name %>
+<% end %>
+  <% @user.posts.each do |p| %>
+  <p>
+  <b>Кто:</b>
+  <%= p.name %><br />
+  <strong>Где: </strong>
+  <%= link_to p.division.name, p.division %>
+  <% end %>

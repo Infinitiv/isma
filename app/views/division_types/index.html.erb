@@ -1,0 +1,23 @@
+<h1>Listing division_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @division_types.each do |division_type| %>
+  <tr>
+    <td><%= division_type.name %></td>
+    <td><%= link_to 'Show', division_type %></td>
+    <td><%= link_to 'Edit', edit_division_type_path(division_type) %></td>
+    <td><%= link_to 'Destroy', division_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Division type', new_division_type_path %>

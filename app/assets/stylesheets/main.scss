@@ -1,0 +1,59 @@
+.session {
+  float : right;
+}
+nav {
+  font-size : 0.9em;
+}
+nav#up {
+  margin : auto;
+  width : 98%;
+}
+.container {
+  margin : auto;
+  width : 98%;
+  clear : both;
+}
+footer {
+  margin : auto;
+  width : 98%;
+}
+header > h1 {
+  font-size : 1.2em;
+  line-height : normal;
+  text-align : center;
+}
+header > img {
+  height : 100px;
+  width : 100px;
+  float : left;
+}
+.login {
+  margin : 0 auto;
+  width : 25%;
+}
+article > header > h1 {
+  font-size : 1em;
+  line-height : normal;
+  text-align : left;
+}
+article > header > p {
+  font-size : 0.8em;
+  line-height : normal;
+}
+article > p {
+  font-size : 0.9em;
+  line-height : normal;
+  text-align : justify;
+}
+.postscript {
+  float : right;
+}
+section > header > h1 {
+  font-size : 1.5em;
+}
+#old_news > article > p {
+  display : none;
+}
+#last_news #old_news {
+  border : 1px gray;
+}

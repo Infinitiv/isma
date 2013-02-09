@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @post.name %>
+</p>
+
+<p>
+  <b>Post list:</b>
+  <%= @post.post_list %>
+</p>
+
+<p>
+  <b>Division:</b>
+  <%= @post.division.name %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%= @post.parent_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= "#{@post.user.profile.first_name + ' ' + @post.user.profile.last_name}" %>
+</p>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

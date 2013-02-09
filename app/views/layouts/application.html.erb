@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang='ru'>
+  <title>Isma</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <meta charset='utf-8' />
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <nav id="up">
+<ul class="nav nav-pills">
+  <li class="active"><%= link_to 'Главная', root_path %>
+  <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">Архив<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Статьи', "/archives/articles" %></li>
+      <li><%= link_to 'Новости', "/archives/news" %></li>
+      <li><%= link_to 'Анонсы', "/archives/anounces" %></li>
+    </ul>
+  </li>
+
+        <div class="session">
+      <% if session[:user_id] %>
+          <span class="label label-info">
+            <%= "#{session[:user_first_name]} " "#{session[:user_last_name].to_s}" %>
+          </span>
+          &nbsp
+          <%= link_to "Выйти", logout_path %>
+        </div>
+        <% else %>
+          <%= link_to 'Войти', login_path %>
+        </div>
+      <% end %>   
+</ul>
+  </nav>
+<header>
+<%= image_tag "gerb.jpg" %>
+<h1>
+<%= link_to title.gsub("\r\n", "<br />").html_safe, root_path %>
+</h1></header>
+  <% if notice then %>
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= notice %>
+    </div>
+  <% end %>
+  <% if alert then %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= alert %>
+    </div>
+  <% end %>
+  <div class="container row-fluid">
+      <nav class="span2">
+        <ul class="nav nav-list">
+          <li class="nav-header">Структура</li>
+          <% divisions.each do |division| %>
+            <li class="<%= "active" if current_page?(division) %>"><%= link_to division.name, division %></li>
+          <% end %>
+          <li class="nav-header">Пользователи</li>
+          <% users.each do |user| %>
+<% if user.profile %>
+            <li class="<%= "active" if current_page?(user) %>"><%= link_to "#{user.profile.first_name} " "#{user.profile.last_name}", user %></li>
+<% end %>
+          <% end %>
+        </ul>    
+      </nav>
+      <section class="span10">
+    <%= yield %>
+      </section>
+  </div>
+<footer>
+<p>&copy; <%= isma %>, 2013
+<address>153012, Россия, Иваново, Шереметевский проспект, 8</address>
+</footer>
+</body>
+</html>

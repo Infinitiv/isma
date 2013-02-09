@@ -1,0 +1,53 @@
+<div class="row-fluid">
+  <div class="span8">
+    <div class="row-fluid">
+      <section id="last_news" class="span8">
+        <header>
+          <h1>Новости</h1>
+        </header>
+        <%= link_to 'Новая статья', new_article_path %>
+        <% @last_news_articles.each do |article| %>
+          <%= render(article) %>
+        <% end %>
+      </section>
+      <section id="old_news" class="span4">
+        <% @old_news_articles.each do |article| %>
+          <%= render(article) %>
+        <% end %>
+        <%= link_to 'Архив новостей', "archives/news" %>
+      </section>
+    </div>
+    <div class="row-fluid">
+      <section id="timeline" class="span12">
+        <header>
+          <h1>Лента</h1>
+        </header>
+        <% @articles.each do |article| %>
+          <%= render(article) %>
+        <% end %>
+        <%= link_to 'Архив статей', "archives/articles" %>
+      </section>
+    </div>
+  </div>
+  <div class="span4">
+    <div class="row-fluid">
+      <section id="personal" class="span12">
+        <header>
+          <h1>Рекомендации</h1>
+        </header>
+        Здесь будет персонализированная информация
+      </section>
+    </div>
+    <div class="row-fluid">
+      <section id="anounces" class="span12">
+        <header>
+          <h1>Анонсы</h1>
+        </header>
+        <% @anounces_articles.each do |article| %>
+          <%= render(article) %>
+        <% end %>
+        <%= link_to 'Архив анонсов', "archives/anounces" %>
+      </section>
+    </div>
+  </div>
+</div>

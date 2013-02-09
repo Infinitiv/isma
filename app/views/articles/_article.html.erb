@@ -1,0 +1,34 @@
+<article>
+<header>
+<h1>
+  <%= link_to article.title, article %>
+</h1>
+<p class=prescript>Написано:&nbsp
+  <%= time_tag article.created_at, :pubdate => true %>
+  <% if article.updated_at > article.created_at %>
+  &nbsp<span class=normal>|</span>&nbspОбновлено:&nbsp
+  <%= time_tag article.updated_at, :pubdate => true %>
+  <% end %>
+</header>
+<p>
+  <% if article.content.length > 255 %>
+    <%= truncate(article.content.html_safe, :length => 255, :omission => '... ', :separator => ' ') %>
+    <%= link_to ' Читать дальше', article %>
+  <% else %>
+    <%= article.content.html_safe %>
+  <% end %>
+<p class=postscript>Автор:&nbsp
+  <%= render :partial => "users/author", :object => article.user %>
+<p>
+  <%= link_to(edit_article_path(article)) do %>
+    <i class="icon-pencil" title="Редактировать"></i>
+  <% end %>
+  <%= link_to(article, confirm: 'Уверены?', method: :delete) do %>
+    <i class="icon-remove" title="Удалить"></i>
+  <% end %>
+  <% if article.commentable? %>
+  <%= link_to(article_path(article, :anchor => "comments")) do %>
+  <i class="icon-comment" title="Комментарии <%= "(#{article.comments.count})" %>"></i>
+<% end %>
+  <% end %>
+</article>

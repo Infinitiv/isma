@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyText
+  content: MyText
+  user_id: MyString
+  exp_date: 2013-01-29
+  article_type_id: 1
+  up_down: false
+  published: false
+  fixed: false
+
+two:
+  title: MyText
+  content: MyText
+  user_id: MyString
+  exp_date: 2013-01-29
+  article_type_id: 1
+  up_down: false
+  published: false
+  fixed: false

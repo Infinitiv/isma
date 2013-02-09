@@ -1,0 +1,50 @@
+<article>
+<header>
+<h1>
+  <%= @article.title %>
+</h1>
+<p class=postsubscript>Автор:&nbsp
+  <%= render :partial => "users/author", :object => @article.user %>
+  &nbsp<span class="normal">|</span>&nbspНаписано:&nbsp
+  <%= time_tag @article.created_at, :pubdate => true %>
+  <% if @article.updated_at > @article.created_at %>
+  &nbsp<span class="normal">|</span>&nbspОбновлено:&nbsp
+  <%= time_tag @article.updated_at, :format => :short, :pubdate => true %>
+  <% end %>
+</header>
+<p>
+  <%= @article.content.gsub("\r\n", "<br />").html_safe %>
+<p>
+  <%= link_to(edit_article_path(@article)) do %>
+    <i class="icon-pencil" title="Редактировать"></i>
+  <% end %>
+  &nbsp|&nbsp
+  <%= link_to(@article, confirm: 'Уверены?', method: :delete) do %>
+    <i class="icon-remove" title="Удалить"></i>
+  <% end %>
+<div>
+<% if @comments.count > 0 %>
+<div id="comments">
+<a name="comments"></a>
+<%= render @comments %>
+</div>
+<% end %>
+<% if @article.commentable? %>
+<%= form_for(@comment) do |f| %>
+  <div class="hidden">
+    <%= f.label :article_id %><br />
+    <%= f.number_field :article_id, :value => @article.id %>
+  </div>
+  <div class="hidden">
+    <%= f.number_field :user_id, :value => 1 %>
+  </div>
+  <div class="field">
+    <%= f.text_area :content, :rows => 3 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<% end %>
+</div>
+</article>

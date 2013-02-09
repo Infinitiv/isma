@@ -1,0 +1,23 @@
+<h1>Listing post_lists</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @post_lists.each do |post_list| %>
+  <tr>
+    <td><%= post_list.name %></td>
+    <td><%= link_to 'Show', post_list %></td>
+    <td><%= link_to 'Edit', edit_post_list_path(post_list) %></td>
+    <td><%= link_to 'Destroy', post_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Post list', new_post_list_path %>

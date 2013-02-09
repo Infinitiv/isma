@@ -1,0 +1,2 @@
+module DivisionTypesHelper
+end

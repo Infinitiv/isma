@@ -1,0 +1,36 @@
+    <div class="row-fluid">
+      <section id="articles" class="span8">
+        <header>
+          <h1><%= @division.name %></h1>
+        </header>
+        <%= link_to 'Новая статья', new_article_path %>
+        <% @articles.each do |article| %>
+          <%= render article %>
+        <% end %>
+        <%= will_paginate @articles, :previous_label => "Назад", :next_label => "Вперед"  %>
+      </section>
+      <section id="division_info" class="span4">
+      	<% if @posts.count > 0 %>
+<p>
+<strong>Сотрудники:</strong>
+<ul>
+<% @posts.each do |p| %>
+  <li>
+    <%= link_to p.name + ': ' + p.user.profile.first_name + ' ' + p.user.profile.last_name, p.user %>
+  </li>
+<% end %>
+</ul>
+<% end %>
+<p>
+  <b>Адрес:</b>
+  <%= @division.location_verbose %>
+</p>
+<img src="http://maps.googleapis.com/maps/api/staticmap?center=
+<%= @division.location_geo_latitude.to_s + ',' + @division.location_geo_longitude.to_s %>
+&zoom=16&size=250x250&sensor=false&maptype=hybrid&markers=color:blue%7C<%= @division.location_geo_latitude.to_s + ',' + @division.location_geo_longitude.to_s %>">
+
+      </section>
+    </div>
+<p>
+<%= link_to 'Редактировать', edit_division_path(@division) %> |
+<%= link_to 'Назад', divisions_path %>
