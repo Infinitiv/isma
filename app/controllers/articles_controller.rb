@@ -2,10 +2,10 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @last_news_articles = Article.order("updated_at DESC").where(:article_type_id => 2).limit(2)
-    @old_news_articles = Article.order("updated_at DESC").where(:article_type_id => 2).limit(5).offset(2)
-    @anounces_articles = Article.order("updated_at DESC").where(:article_type_id => 3).limit(5)
-    @articles = Article.order("updated_at DESC").where(:article_type_id => 1).limit(10)
+    @current_user = User.find(session[:user_id])
+    @last_news_articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date > ? or exp_date IS ?) and published = ?", 2, Time.now.to_date, nil, true).limit(5)
+    @anounces_articles = Article.order("updated_at DESC").where("article_type_id = ? and exp_date > ? and published = ?", 3, Time.now.to_date, true).limit(5)
+    @articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date > ? or exp_date IS ?) and published = ?", 1, Time.now.to_date, nil, true).limit(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,8 +28,11 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   # GET /articles/new.json
   def new
+    @current_user = User.find(session[:user_id])
     @article = Article.new
     @article_types = ArticleType.all
+    @divisions = @current_user.divisions
+    @permissions = Permission.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @article }
@@ -40,6 +43,8 @@ class ArticlesController < ApplicationController
   def edit
     @article = Article.find(params[:id])
     @article_types = ArticleType.all
+    @divisions = @article.user.divisions
+    @permissions = Permission.all
   end
 
   # POST /articles

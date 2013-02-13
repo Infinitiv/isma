@@ -15,8 +15,9 @@ class DivisionsController < ApplicationController
   def show
     @division = Division.find(params[:id])
     @posts = @division.posts
-    @articles = @division.articles.paginate(:page => params[:page], :per_page => 10).order("updated_at DESC")
-
+    @articles_free = @division.articles.where("fixed = ?", false).paginate(:page => params[:page], :per_page => 10).order("updated_at DESC")
+    @articles_fixed = @division.articles.where("fixed = ?", true).paginate(:page => params[:page], :per_page => 10).order("updated_at DESC")
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @division }

@@ -20,6 +20,14 @@
     <%= f.text_area :content %>
   </div>
   <div class="field">
+    <%= f.label 'Опубликовать от имени' %>
+    <%= f.select :division_id, options_for_select= @divisions.collect {|p| [t(p.name, :scope => [:articles]), p.id] }, {:include_blank => ''} %>
+  </div>
+  <div class="field">
+    <%= f.label 'Доступно' %>
+    <%= f.select :permission_id, options_for_select= @permissions.collect {|p| [t(p.name, :scope => [:articles]), p.id] }, {:include_blank => ''} %>
+  </div>
+  <div class="field">
     <%= f.label 'Тип' %>
     <%= f.select :article_type_id, options_for_select= @article_types.collect {|p| [t(p.name, :scope => [:articles]), p.id] }, {:include_blank => ''} %>
   </div>

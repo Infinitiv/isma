@@ -1,10 +1,16 @@
-<article>
-<header>
-<h1>
-  <%= @article.title %>
-</h1>
-<p class=postsubscript>Автор:&nbsp
-  <%= render :partial => "users/author", :object => @article.user %>
+<div class="row-fluid">
+  <section id="articles" class="span8">
+    <article>
+      <header>
+        <h1>
+          <%= @article.title %>
+        </h1>
+        <p class=postsubscript>
+          <% if @article.division_id.nil? %>
+            <%= render :partial => "users/author", :object => @article.user %>
+          <% else %>
+            <%= link_to @article.division.name, @article.division %>
+          <% end %>
   &nbsp<span class="normal">|</span>&nbspНаписано:&nbsp
   <%= time_tag @article.created_at, :pubdate => true %>
   <% if @article.updated_at > @article.created_at %>
@@ -48,3 +54,58 @@
 <% end %>
 </div>
 </article>
+</section>
+      <section id="division_info" class="span4">
+          <% if @article.division_id.nil? %>
+<p>
+<% if @article.user.profile.nil? %>
+<%= form_for(@profile) do |f| %>
+  <div class="field">
+    <%= f.label :first_name, 'Имя' %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :middle_name, 'Отчество' %><br />
+    <%= f.text_field :middle_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name, 'Фамилия' %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<% else %>
+  <b>Имя пользователя:</b>
+  <%= @article.user.profile.first_name + ' ' + @article.user.profile.last_name %>
+<% end %>
+  <% @article.user.posts.each do |p| %>
+  <p>
+  <b>Кто:</b>
+  <%= p.name %><br />
+  <strong>Где: </strong>
+  <%= link_to p.division.name, p.division %>
+  <% end %>
+          <% else %>
+<% if @article.user.posts.count > 0 %>
+<p>
+<strong>Сотрудники:</strong>
+<ul>
+<% @article.user.posts.each do |p| %>
+  <li>
+    <%= link_to p.name + ': ' + p.user.profile.first_name + ' ' + p.user.profile.last_name, p.user %>
+  </li>
+<% end %>
+</ul>
+<% end %>
+ <p>
+  <b>Адрес:</b>
+  <%= @article.division.location_verbose %>
+</p>
+<img src="http://maps.googleapis.com/maps/api/staticmap?center=
+<%= @article.division.location_geo_latitude.to_s + ',' + @article.division.location_geo_longitude.to_s %>
+&zoom=16&size=250x250&sensor=false&maptype=hybrid&markers=color:blue%7C<%= @article.division.location_geo_latitude.to_s + ',' + @article.division.location_geo_longitude.to_s %>">
+          <% end %>
+      </section>
+    </div>

@@ -4,10 +4,10 @@
           <h1><%= @division.name %></h1>
         </header>
         <%= link_to 'Новая статья', new_article_path %>
-        <% @articles.each do |article| %>
+        <% @articles_free.each do |article| %>
           <%= render article %>
         <% end %>
-        <%= will_paginate @articles, :previous_label => "Назад", :next_label => "Вперед"  %>
+        <%= will_paginate @articles_free, :previous_label => "Назад", :next_label => "Вперед"  %>
       </section>
       <section id="division_info" class="span4">
       	<% if @posts.count > 0 %>
@@ -21,6 +21,10 @@
 <% end %>
 </ul>
 <% end %>
+<% @articles_fixed.each do |article| %>
+          <%= render article %>
+        <% end %>
+        <%= will_paginate @articles_fixed, :previous_label => "Назад", :next_label => "Вперед"  %>
 <p>
   <b>Адрес:</b>
   <%= @division.location_verbose %>

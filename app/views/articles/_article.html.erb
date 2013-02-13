@@ -17,8 +17,12 @@
   <% else %>
     <%= article.content.html_safe %>
   <% end %>
-<p class=postscript>Автор:&nbsp
-  <%= render :partial => "users/author", :object => article.user %>
+<p class=postscript>
+  <% if article.division_id.nil? %>
+    <%= render :partial => "users/author", :object => article.user %>
+  <% else %>
+    <%= link_to article.division.name, article.division %>
+  <% end %>
 <p>
   <%= link_to(edit_article_path(article)) do %>
     <i class="icon-pencil" title="Редактировать"></i>
