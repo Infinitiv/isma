@@ -15,15 +15,52 @@
   <li class="dropdown">
     <a class="dropdown-toggle"
        data-toggle="dropdown"
-       href="#">Архив<b class="caret"></b>
+       href="#">Абитуриенту<b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
-      <li><%= link_to 'Статьи', "/archives/articles" %></li>
-      <li><%= link_to 'Новости', "/archives/news" %></li>
-      <li><%= link_to 'Анонсы', "/archives/anounces" %></li>
+      <li><%= link_to 'Приемная комиссия', "#" %></li>
+      <li><%= link_to 'Довузовская подготовка', "#" %></li>
     </ul>
   </li>
-
+  <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">Студенту<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Расписание', "#" %></li>
+      <li><%= link_to 'Библиотека', "#" %></li>
+      <li><%= link_to 'Социальная поддержка', "#" %></li>
+      <li><%= link_to 'Допуск к медицинской деятельности', "#" %></li>
+      <li><%= link_to 'Студенческая наука', "#" %></li>
+      <li><%= link_to 'Совет студентов', "#" %></li>
+      <li><%= link_to 'Досуг', "#" %></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">Сотруднику<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Аттестация работников', "#" %></li>
+      <li><%= link_to 'Социальня поддержка', "#" %></li>
+      <li><%= link_to 'Методическое обеспечение', "#" %></li>
+      <li><%= link_to 'Шаблоны документов', "#" %></li>
+      <li><%= link_to 'Досуг', "#" %></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">Пациенту<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Клиника ИвГМА', "#" %></li>
+      <li><%= link_to 'Лечебная деятельность сотрудников', "#" %></li>
+    </ul>
+  </li>
+      <li><%= link_to 'Об академии', "#" %></li>
         <div class="session">
       <% if session[:user_id] %>
           <span class="label label-info">
@@ -39,8 +76,8 @@
 </ul>
   </nav>
 <header>
-<%= image_tag "gerb.jpg" %>
 <h1>
+<%= image_tag "gerb.png" %>
 <%= link_to title.gsub("\r\n", "<br />").html_safe, root_path %>
 </h1></header>
   <% if notice then %>
@@ -58,16 +95,21 @@
   <div class="container row-fluid">
       <nav class="span2">
         <ul class="nav nav-list">
-          <li class="nav-header">Структура</li>
-          <% divisions.each do |division| %>
-            <li class="<%= "active" if current_page?(division) %>"><%= link_to division.name, division %></li>
-          <% end %>
-          <li class="nav-header">Пользователи</li>
-          <% users.each do |user| %>
-<% if user.profile %>
-            <li class="<%= "active" if current_page?(user) %>"><%= link_to "#{user.profile.first_name} " "#{user.profile.last_name}", user %></li>
-<% end %>
-          <% end %>
+          <li class="nav-header">Администрация</li>
+            <li><%= link_to 'Ученый совет', "/divisions/1" %></li>
+            <li><%= link_to 'Учебная работа', "#" %></li>
+            <li><%= link_to 'Научная работа', "#" %></li>
+            <li><%= link_to 'Воспитательная работа', "#" %></li>
+            <li><%= link_to 'Клиническая работа', "#" %></li>
+            <li><%= link_to 'Административно-хозяйственная работа', "#" %></li>
+            <li><%= link_to 'Подразделения', "#" %></li>
+          <li class="nav-header">Факультеты</li>
+            <li><%= link_to 'Лечебный', "#" %></li>
+            <li><%= link_to 'Педиатрический', "#" %></li>
+            <li><%= link_to 'Стоматологический', "#" %></li>
+            <li><%= link_to 'Менеджмента и высшего сестринского образования', "#" %></li>
+            <li><%= link_to 'Послевузовского образования', "#" %></li>
+            <li><%= link_to 'Дополнительного образования', "#" %></li>
         </ul>    
       </nav>
       <section class="span10">
@@ -76,7 +118,7 @@
   </div>
 <footer>
 <p>&copy; <%= isma %>, 2013
-<address>153012, Россия, Иваново, Шереметевский проспект, 8</address>
+<address><%= address %></address>
 </footer>
 </body>
 </html>

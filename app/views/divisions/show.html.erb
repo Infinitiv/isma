@@ -1,40 +1,34 @@
-    <div class="row-fluid">
-      <section id="articles" class="span8">
-        <header>
-          <h1><%= @division.name %></h1>
+<div class="row-fluid">
+<% if @articles.where(:fixed => false).count > 0 %>
+  <section id="articles" class="span8">
+    <header>
+      <h1><%= @division.name %></h1>
         </header>
-        <%= link_to 'Новая статья', new_article_path %>
-        <% @articles_free.each do |article| %>
-          <%= render article %>
-        <% end %>
-        <%= will_paginate @articles_free, :previous_label => "Назад", :next_label => "Вперед"  %>
-      </section>
-      <section id="division_info" class="span4">
-      	<% if @posts.count > 0 %>
-<p>
-<strong>Сотрудники:</strong>
-<ul>
-<% @posts.each do |p| %>
-  <li>
-    <%= link_to p.name + ': ' + p.user.profile.first_name + ' ' + p.user.profile.last_name, p.user %>
-  </li>
+          <%= link_to 'Новая статья', new_article_path %>
+          <%= render @articles.where(:fixed => false).paginate(:page => params[:page], :per_page => 10) %>
+          <%= will_paginate @articles.where(:fixed => false).paginate(:page => params[:page], :per_page => 10), :previous_label => "Назад", :next_label => "Вперед"  %>
+  </section>
+  <section id="division_info" class="span4">
+<% else %>
+  <section id="division_info" class="span12">
 <% end %>
-</ul>
-<% end %>
-<% @articles_fixed.each do |article| %>
-          <%= render article %>
+    <% if @posts.count > 0 %>
+      <p>
+      <strong>Сотрудники:</strong>
+      <ul>
+        <% @posts.each do |p| %>
+          <li>
+            <%= link_to p.name + ': ' + p.user.profile.first_name + ' ' + p.user.profile.last_name, p.user %>
+          </li>
         <% end %>
-        <%= will_paginate @articles_fixed, :previous_label => "Назад", :next_label => "Вперед"  %>
-<p>
-  <b>Адрес:</b>
-  <%= @division.location_verbose %>
-</p>
-<img src="http://maps.googleapis.com/maps/api/staticmap?center=
-<%= @division.location_geo_latitude.to_s + ',' + @division.location_geo_longitude.to_s %>
-&zoom=16&size=250x250&sensor=false&maptype=hybrid&markers=color:blue%7C<%= @division.location_geo_latitude.to_s + ',' + @division.location_geo_longitude.to_s %>">
-
-      </section>
-    </div>
-<p>
-<%= link_to 'Редактировать', edit_division_path(@division) %> |
-<%= link_to 'Назад', divisions_path %>
+      </ul>
+    <% end %>
+    <p>
+    <%= render @articles.where(:fixed => true) %>
+    <%= will_paginate @articles.where(:fixed => true).paginate(:page => params[:page], :per_page => 10), :previous_label => "Назад", :next_label => "Вперед"  %>
+    <b>Адрес:</b>
+    <%= @division.location_verbose %>
+    <p>
+    <img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= @division.location_geo_latitude.to_s + ',' + @division.location_geo_longitude.to_s %>&zoom=16&size=250x250&sensor=false&maptype=hybrid&markers=color:blue%7C<%= @division.location_geo_latitude.to_s + ',' + @division.location_geo_longitude.to_s %>">
+  </section>
+</div>

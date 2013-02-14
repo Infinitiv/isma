@@ -1,14 +1,21 @@
 <article>
 <header>
 <h1>
-  <%= link_to article.title, article %>
+  <em><%= link_to article.title, article %></em>
 </h1>
-<p class=prescript>Написано:&nbsp
-  <%= time_tag article.created_at, :pubdate => true %>
+<p class="prescript">
+<% case article.updated_at.to_date %>
+<% when Time.now.to_date %>
   <% if article.updated_at > article.created_at %>
-  &nbsp<span class=normal>|</span>&nbspОбновлено:&nbsp
-  <%= time_tag article.updated_at, :pubdate => true %>
+  &nbspОбновлено:&nbsp
   <% end %>
+  <%= time_tag article.updated_at, :pubdate => true, :format => '%R' %>
+<% else %>
+  <% if article.updated_at > article.created_at %>
+  &nbspОбновлено:&nbsp
+  <% end %>
+  <%= time_tag article.updated_at, :pubdate => true, :format => '%e.%m.%Y %R' %>
+<% end %>
 </header>
 <p>
   <% if article.content.length > 255 %>
@@ -21,7 +28,7 @@
   <% if article.division_id.nil? %>
     <%= render :partial => "users/author", :object => article.user %>
   <% else %>
-    <%= link_to article.division.name, article.division %>
+    <%= link_to article.division.name, article.division if article.division != @division %>
   <% end %>
 <p>
   <%= link_to(edit_article_path(article)) do %>

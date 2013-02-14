@@ -39,3 +39,4 @@ gem 'thin'
 # gem 'debugger'
 
 gem 'will_paginate'
+gem 'sanitize'

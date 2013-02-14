@@ -7,11 +7,13 @@ module ApplicationHelper
     Detail.find_by_id(2).value
   end
   
-  def divisions
-    Division.all
+  def address
+    Detail.find_by_id(7).value
   end
   
-  def users
-    User.all
+  def current_user
+    if session[:user_id]
+      User.find(session[:user_id])
+    end
   end
 end

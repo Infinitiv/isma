@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     else
       @group_user = @user.group_users
     end
-    
+    @articles = @user.articles.order("updated_at DESC")
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
