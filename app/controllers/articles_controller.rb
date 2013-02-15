@@ -8,6 +8,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.atom {render atom: @last_news_articles}
       format.json { render json: @articles }
     end
   end
@@ -91,4 +92,13 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def feed
+    @articles = Article.order("updated_at DESC").where("article_type_id = ? and updated_at > ? and published = ?", 2, Time.now.to_date - 30, true)
+    
+    respond_to do |format|
+      format.atom
+    end
+  end
+  
 end

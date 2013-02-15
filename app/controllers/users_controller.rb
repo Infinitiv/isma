@@ -19,12 +19,14 @@ class UsersController < ApplicationController
     else
       @profile = @user.profile
     end
-   
+    @post = Post.new
     if @user.groups.nil? 
       @group_user = GroupUser.new
     else
       @group_user = @user.group_users
     end
+    @divisions = Division.all
+    @posts = Post.all
     @articles = @user.articles.order("updated_at DESC")
     respond_to do |format|
       format.html # show.html.erb

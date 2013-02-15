@@ -33,6 +33,10 @@ Isma::Application.routes.draw do
 
 
   resources :articles
+  
+  controller :articles do
+    get :feed
+  end
 
 
   resources :groups

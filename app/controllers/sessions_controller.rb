@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
     user = User.find_by_login(params[:login])
     if user and user.authenticate(params[:password])
       session[:user_id] = user.id
-      session[:user_first_name] = user.profile.first_name
-      session[:user_last_name] = user.profile.last_name
+      session[:user_first_name] = user.profile.first_name if user.profile.first_name
+      session[:user_last_name] = user.profile.last_name if user.profile.last_name
       redirect_to root_path
     else
       redirect_to login_url, alert: "Error"

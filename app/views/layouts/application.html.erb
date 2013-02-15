@@ -4,6 +4,7 @@
   <title>Isma</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <%= auto_discovery_link_tag(:atom, "/feed.atom") %>
   <meta charset='utf-8' />
   <%= csrf_meta_tags %>
 </head>
@@ -97,7 +98,7 @@
         <ul class="nav nav-list">
           <li class="nav-header">Администрация</li>
             <li><%= link_to 'Ученый совет', "/divisions/1" %></li>
-            <li><%= link_to 'Учебная работа', "#" %></li>
+            <li><%= link_to 'Учебная работа', "/divisions/12" %></li>
             <li><%= link_to 'Научная работа', "#" %></li>
             <li><%= link_to 'Воспитательная работа', "#" %></li>
             <li><%= link_to 'Клиническая работа', "#" %></li>

@@ -41,10 +41,27 @@
     <% end %>
     <% @user.posts.each do |p| %>
       <p>
-      <strong>Кто:</strong>
       <%= p.name %><br />
-      <strong>Где: </strong>
       <%= link_to p.division.name, p.division %>
+    <% end %>
+    <% if @user == current_user %>
+          <%= form_for(@post) do |f| %>
+	    <div class="field">
+	      <%= f.label :name %><br />
+	      <%= f.text_field :name %>
+	    </div>
+	    <div class="field">
+	      <%= f.label :division_id %><br />
+	      <%= f.select :division_id, options_for_select= @divisions.collect {|p| [t(p.name, :scope => [:divisions]), p.id] }, {:include_blank => ''} %>
+	    </div>
+	    <div class="field">
+	      <%= f.label :parent_id %><br />
+	      <%= f.select :parent_id, options_for_select= @posts.collect {|p| [t(p.name, :scope => [:posts]), p.id] }, {:include_blank => ''} %>
+	    </div>
+	    <div class="actions">
+	      <%= f.submit %>
+	    </div>
+	  <% end %>
     <% end %>
   </section>
 </div>

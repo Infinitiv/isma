@@ -3,14 +3,16 @@
   <section id="articles" class="span8">
     <header>
       <h1><%= @division.name %></h1>
-        </header>
-          <%= link_to 'Новая статья', new_article_path %>
+    </header>
           <%= render @articles.where(:fixed => false).paginate(:page => params[:page], :per_page => 10) %>
           <%= will_paginate @articles.where(:fixed => false).paginate(:page => params[:page], :per_page => 10), :previous_label => "Назад", :next_label => "Вперед"  %>
   </section>
   <section id="division_info" class="span4">
 <% else %>
   <section id="division_info" class="span12">
+    <header>
+      <h1><%= @division.name %></h1>
+    </header>
 <% end %>
     <% if @posts.count > 0 %>
       <p>
@@ -23,6 +25,7 @@
         <% end %>
       </ul>
     <% end %>
+      <%= link_to 'Новая статья', new_article_path %>
     <p>
     <%= render @articles.where(:fixed => true) %>
     <%= will_paginate @articles.where(:fixed => true).paginate(:page => params[:page], :per_page => 10), :previous_label => "Назад", :next_label => "Вперед"  %>

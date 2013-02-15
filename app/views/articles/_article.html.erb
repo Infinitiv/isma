@@ -19,7 +19,7 @@
 </header>
 <p>
   <% if article.content.length > 255 %>
-    <%= truncate(article.content.html_safe, :length => 255, :omission => '... ', :separator => ' ') %>
+    <%= Sanitize.clean(truncate(article.content, :length => 255, :omission => '... ', :separator => ' '), Sanitize::Config::RELAXED).html_safe %>
     <%= link_to ' Читать дальше', article %>
   <% else %>
     <%= article.content.html_safe %>
