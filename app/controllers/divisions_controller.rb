@@ -15,7 +15,7 @@ class DivisionsController < ApplicationController
   def show
     @division = Division.find(params[:id])
     @posts = @division.posts
-    @articles = @division.articles.order("updated_at DESC")
+    @articles = @division.articles.order("updated_at DESC").where(published: true)
     
     respond_to do |format|
       format.html # show.html.erb

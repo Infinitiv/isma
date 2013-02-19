@@ -1,15 +1,12 @@
 module ApplicationHelper
-  def title
-    Detail.find_by_id(1).value
+  def details
+    details = {}
+    Detail.all.each do |d|
+      details[d.key] = d.value
+    end
+    details
   end
-  
-  def isma
-    Detail.find_by_id(2).value
-  end
-  
-  def address
-    Detail.find_by_id(7).value
-  end
+
   
   def current_user
     if session[:user_id]

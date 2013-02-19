@@ -21,6 +21,12 @@
 	<p>
 	  <%= @article.content.gsub("\r\n", "<br />").html_safe %>
 	<p>
+<% if @article.attachments.count > 0 %>
+  <% @article.attachments.each do |a| %>
+    <%= link_to a.name, article_attachment_path(@article.id, a.id) %>
+  <% end %>
+<% end %>
+<p>
 	  <%= link_to(edit_article_path(@article)) do %>
 	    <i class="icon-pencil" title="Редактировать"></i>
 	  <% end %>

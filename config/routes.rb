@@ -31,8 +31,10 @@ Isma::Application.routes.draw do
   end
   resources :comments
 
-
   resources :articles
+  resources :articles do
+    resources :attachments
+  end
   
   controller :articles do
     get :feed

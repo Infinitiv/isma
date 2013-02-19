@@ -13,6 +13,7 @@
   <nav id="up">
 <ul class="nav nav-pills">
   <li class="active"><%= link_to 'Главная', root_path %>
+      <li><%= link_to 'Об академии', "#" %></li>
   <li class="dropdown">
     <a class="dropdown-toggle"
        data-toggle="dropdown"
@@ -38,6 +39,52 @@
       <li><%= link_to 'Досуг', "#" %></li>
     </ul>
   </li>
+    <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">Интерну<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Расписание', "#" %></li>
+      <li><%= link_to 'Библиотека', "#" %></li>
+      <li><%= link_to 'Общежития', "#" %></li>
+      <li><%= link_to 'Допуск к медицинской деятельности', "#" %></li>
+      <li><%= link_to 'Кафедры', "#" %></li>
+      <li><%= link_to 'Досуг', "#" %></li>
+    </ul>
+  </li>
+    <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">Ординатору<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Расписание', "#" %></li>
+      <li><%= link_to 'Библиотека', "#" %></li>
+      <li><%= link_to 'Общежития', "#" %></li>
+      <li><%= link_to 'Допуск к медицинской деятельности', "#" %></li>
+      <li><%= link_to 'Кафедры', "#" %></li>
+      <li><%= link_to 'Досуг', "#" %></li>
+    </ul>
+  </li>
+    <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">Аспиранту<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Расписание', "#" %></li>
+      <li><%= link_to 'Библиотека', "#" %></li>
+      <li><%= link_to 'Диссертационный совет', "#" %></li>
+      <li><%= link_to 'НОСМУ', "#" %></li>
+      <li><%= link_to 'Этический комитет', "#" %></li>
+      <li><%= link_to 'Научно-исследовательский центр', "#" %></li>
+      <li><%= link_to 'Отдел организации научных исследований', "#" %></li>
+      <li><%= link_to 'Конференции', "#" %></li>
+      <li><%= link_to 'Конкурсы и гранты', "#" %></li>
+      <li><%= link_to 'Досуг', "#" %></li>
+    </ul>
+  </li>
   <li class="dropdown">
     <a class="dropdown-toggle"
        data-toggle="dropdown"
@@ -58,10 +105,8 @@
     </a>
     <ul class="dropdown-menu">
       <li><%= link_to 'Клиника ИвГМА', "#" %></li>
-      <li><%= link_to 'Лечебная деятельность сотрудников', "#" %></li>
     </ul>
   </li>
-      <li><%= link_to 'Об академии', "#" %></li>
         <div class="session">
       <% if session[:user_id] %>
           <span class="label label-info">
@@ -79,7 +124,7 @@
 <header>
 <h1>
 <%= image_tag "gerb.png" %>
-<%= link_to title.gsub("\r\n", "<br />").html_safe, root_path %>
+<%= link_to details["Наименование академии полное"].gsub("\r\n", "<br />").html_safe, root_path %>
 </h1></header>
   <% if notice then %>
     <div class="alert alert-info">
@@ -118,8 +163,8 @@
       </section>
   </div>
 <footer>
-<p>&copy; <%= isma %>, 2013
-<address><%= address %></address>
+<p>&copy; <%= details["Сокращенное наименование академии"] %>, 2013
+<address><%= details["Адрес академии"] %></address>
 </footer>
 </body>
 </html>

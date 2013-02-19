@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
 	  session[:user_id] = User.last.id
-	  GroupUser.create(user_id: User.last.id, group_id: 5)
+	  GroupUser.create(user_id: @user.id, group_id: 5)
           format.html { redirect_to @user, notice: 'User was successfully created.' }
           format.json { render json: @user, status: :created, location: @user }
         else

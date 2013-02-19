@@ -4,8 +4,8 @@
     <header>
       <h1><%= @division.name %></h1>
     </header>
-          <%= render @articles.where(:fixed => false).paginate(:page => params[:page], :per_page => 10) %>
-          <%= will_paginate @articles.where(:fixed => false).paginate(:page => params[:page], :per_page => 10), :previous_label => "Назад", :next_label => "Вперед"  %>
+          <%= render @articles.where(:fixed => true).paginate(:page => params[:page], :per_page => 20) %>
+          <%= will_paginate @articles.where(:fixed => true).paginate(:page => params[:page], :per_page => 20), :previous_label => "Назад", :next_label => "Вперед"  %>
   </section>
   <section id="division_info" class="span4">
 <% else %>
@@ -20,15 +20,16 @@
       <ul>
         <% @posts.each do |p| %>
           <li>
-            <%= link_to p.name + ': ' + p.user.profile.first_name + ' ' + p.user.profile.last_name, p.user %>
+            <%= link_to "#{p.user.profile.first_name}"' '"#{p.user.profile.middle_name}"' '"#{p.user.profile.last_name}", p.user %>
+	    <%= "- #{p.user.profile.degree}, #{p.user.profile.title}" %>
           </li>
         <% end %>
       </ul>
     <% end %>
       <%= link_to 'Новая статья', new_article_path %>
     <p>
-    <%= render @articles.where(:fixed => true) %>
-    <%= will_paginate @articles.where(:fixed => true).paginate(:page => params[:page], :per_page => 10), :previous_label => "Назад", :next_label => "Вперед"  %>
+    <%= render @articles.where(:fixed => false) %>
+    <%= will_paginate @articles.where(:fixed => false).paginate(:page => params[:page], :per_page => 10), :previous_label => "Назад", :next_label => "Вперед"  %>
     <b>Адрес:</b>
     <%= @division.location_verbose %>
     <p>
