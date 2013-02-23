@@ -1,45 +1,5 @@
 <article>
-<header>
-<h1>
-  <em><%= link_to article.title, article %></em>
-</h1>
-<p class="prescript">
-<% case article.updated_at.to_date %>
-<% when Time.now.to_date %>
-  <% if article.updated_at > article.created_at %>
-  &nbspОбновлено:&nbsp
-  <% end %>
-  <%= time_tag article.updated_at, :pubdate => true, :format => '%R' %>
-<% else %>
-  <% if article.updated_at > article.created_at %>
-  &nbspОбновлено:&nbsp
-  <% end %>
-  <%= time_tag article.updated_at, :pubdate => true, :format => '%e.%m.%Y %R' %>
-<% end %>
-</header>
-<p>
-  <% if article.content.length > 255 %>
-    <%= Sanitize.clean(truncate(article.content, :length => 255, :omission => '... ', :separator => ' '), Sanitize::Config::RELAXED).html_safe %>
-    <%= link_to ' Читать дальше', article %>
-  <% else %>
-    <%= article.content.html_safe %>
-  <% end %>
-<p class=postscript>
-  <% if article.division_id.nil? %>
-    <%= render :partial => "users/author", :object => article.user %>
-  <% else %>
-    <%= link_to article.division.name, article.division if article.division != @division %>
-  <% end %>
-<p>
-  <%= link_to(edit_article_path(article)) do %>
-    <i class="icon-pencil" title="Редактировать"></i>
-  <% end %>
-  <%= link_to(article, confirm: 'Уверены?', method: :delete) do %>
-    <i class="icon-remove" title="Удалить"></i>
-  <% end %>
-  <% if article.commentable? %>
-  <%= link_to(article_path(article, :anchor => "comments")) do %>
-  <i class="icon-comment" title="Комментарии <%= "(#{article.comments.count})" %>"></i>
-<% end %>
-  <% end %>
+<%= render partial: 'article_header', locals: { article: article } %>
+<%= render partial: 'article_content', locals: { article: article } %>
+<%= render partial: 'article_footer', locals: { article: article } %>
 </article>

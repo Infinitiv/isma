@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
     @last_news_articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date >= ? or exp_date IS ?) and published = ?", 2, Time.now.to_date, nil, true).limit(5)
     @anounces_articles = Article.order("updated_at DESC").where("article_type_id = ? and exp_date >= ? and published = ?", 3, Time.now.to_date, true).limit(5)
     @articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date >= ? or exp_date IS ?) and published = ?", 1, Time.now.to_date, nil, true).limit(10)
-
+    @personal_articles
     respond_to do |format|
       format.html # index.html.erb
       format.atom {render atom: @last_news_articles}

@@ -6,16 +6,12 @@
           <h1>Новости</h1>
         </header>
         <%= link_to 'Новая статья', new_article_path %>
-        <% @last_news_articles.each do |article| %>
-          <%= render(article) %>
-        <% end %>
+	<%= render partial: 'article', collection: @last_news_articles %>
         <%= link_to 'Архив новостей', "archives/news" %>
         <header>
           <h1>Лента</h1>
         </header>
-        <% @articles.each do |article| %>
-          <%= render(article) %>
-        <% end %>
+	<%= render @articles %>
         <%= link_to 'Архив статей', "archives/articles" %>
       </section>
     </div>
@@ -26,13 +22,11 @@
         <header>
           <h1>Рекомендации</h1>
         </header>
-        Здесь будет персонализированная информация
+        <%= render(partial: 'article', collection: @personal_articles) || "Здесь будет персонализированная информация" %>
         <header>
           <h1>Анонсы</h1>
         </header>
-        <% @anounces_articles.each do |article| %>
-          <%= render(article) %>
-        <% end %>
+	<%= render partial: 'article', collection: @anounces_articles %>
         <%= link_to 'Архив анонсов', "archives/anounces" %>
       </section>
     </div>
