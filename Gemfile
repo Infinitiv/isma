@@ -40,3 +40,5 @@ gem 'thin'
 
 gem 'will_paginate'
 gem 'sanitize'
+gem 'rmagick'
+gem 'twitter'

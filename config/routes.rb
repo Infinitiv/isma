@@ -30,7 +30,7 @@ Isma::Application.routes.draw do
     get 'logout' => :destroy
   end
   resources :comments
-
+  resources :attachments
   resources :articles
   resources :articles do
     resources :attachments

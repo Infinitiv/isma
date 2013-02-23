@@ -6,5 +6,5 @@ class Article < ActiveRecord::Base
   belongs_to :division
   has_many :group_users, :through => :user
   has_many :groups, :through => :group_users
-  has_many :attachments
+  has_many :attachments, :dependent => :destroy
 end

@@ -17,8 +17,9 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article = Article.find(params[:id])
-    if @article.user == current_user || @article.published?
+    if @article.user == current_user
     @comment = Comment.new
+    @attachment = Attachment.new
     @comments = @article.comments
     respond_to do |format|
       format.html # show.html.erb
@@ -57,26 +58,11 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     params[:article][:user_id] = session[:user_id]
-    @article = Article.new
-    @article.title = params[:article][:title]
-    @article.content = params[:article][:content]
-    @article.division_id = params[:article][:division_id]
-    @article.permission_id = params[:article][:permission_id]
-    @article.article_type_id = params[:article][:article_type_id]
-    @article.commentable = params[:article][:commentable]
-    @article.published = params[:article][:published]
-    @article.fixed = params[:article][:fixed]
+    @article = Article.new(params[:article])
 
-    file = params[:article][:attachment]
 
     respond_to do |format|
       if @article.save
-	attachment = Attachment.new
-	attachment.article_id = @article.id
-	attachment.name = file.original_filename
-	attachment.data = file.read
-	attachment.mime_type = file.content_type
-	attachment.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
         format.json { render json: @article, status: :created, location: @article }
       else
@@ -121,4 +107,5 @@ class ArticlesController < ApplicationController
       format.atom
     end
   end
+  
 end

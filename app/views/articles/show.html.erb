@@ -18,13 +18,39 @@
 	  <%= time_tag @article.updated_at, :format => :short, :pubdate => true %>
 	  <% end %>
 	</header>
+<%= link_to image_tag(article_attachment_path(@article.id, @article.attachments.select {|a| a.mime_type =~ /image/}.first.id)), article_attachment_path(@article.id, @article.attachments.select {|a| a.mime_type =~ /image/}.first.id), :rel => "lightbox[images]", :class => "pull-left media-object", :title => @article.attachments.select {|a| a.mime_type =~ /image/}.first.name.reverse.from((%r{[.]\w+} =~ @article.attachments.select {|a| a.mime_type =~ /image/}.first.name.reverse) + 1).reverse %>
 	<p>
 	  <%= @article.content.gsub("\r\n", "<br />").html_safe %>
 	<p>
+
+<% if @article.attachments.select {|a| a.mime_type =~ /image/}.count > 0 %>
+<ul class="thumbnails">
+<% @article.attachments.select {|a| a.mime_type =~ /image/}.each do |a| %>
+  <li class="span4">
+<%= link_to image_tag(article_attachment_path(@article.id, a.id)), article_attachment_path(@article.id, a.id), :rel => "lightbox[images]", :class => "thumbnail", :title => a.name.reverse.from((%r{[.]\w+} =~ a.name.reverse) + 1).reverse %>
+  </li>
+<% end %>
+</ul>
+<% end %>
 <% if @article.attachments.count > 0 %>
   <% @article.attachments.each do |a| %>
-    <%= link_to a.name, article_attachment_path(@article.id, a.id) %>
+    <% if %r{^image}.match(a.mime_type).nil? %>
+      <%= link_to(a.name.reverse.from((%r{[.]\w+} =~ a.name.reverse) + 1).reverse, article_attachment_path(@article.id, a.id), :target => "new") + " Загружено #{ a.updated_at}"%><br />
+    <% end %>
   <% end %>
+<%= form_for(@attachment) do |f| %>
+  <div class="hidden">
+    <%= f.label :article_id %><br />
+    <%= f.number_field :article_id, :value => @article.id %>
+  </div>  
+  <div class="filefild">
+    <%= f.label 'Прикрепить файл' %>
+    <%= f.file_field :file %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
 <% end %>
 <p>
 	  <%= link_to(edit_article_path(@article)) do %>
