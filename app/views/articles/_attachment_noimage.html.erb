@@ -1,0 +1,6 @@
+<li>
+<%= link_to attachment_noimage.name.reverse.from((%r{[.]\w+} =~ attachment_noimage.name.reverse) + 1).reverse, attachment_path(attachment_noimage.id) %>
+<%= link_to(attachment_noimage, confirm: 'Уверены?', method: :delete) do %>
+  <i class="icon-remove" title="Удалить"></i>
+<% end %>
+</li>

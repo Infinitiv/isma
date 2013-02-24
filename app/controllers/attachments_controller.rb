@@ -18,4 +18,13 @@ class AttachmentsController < ApplicationController
             render :action => "new"
         end
     end
+    
+    def destroy
+    @attachment = Attachment.find(params[:id])
+    @attachment.destroy
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
 end

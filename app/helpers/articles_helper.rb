@@ -8,4 +8,10 @@ module ArticlesHelper
   def sanitize_truncate(text)
     Sanitize.clean(truncate(text, :length => 255, :omission => '... ', :separator => ' '), Sanitize::Config::RELAXED).html_safe
   end
+  def attachment_images(article)
+    article.attachments.select {|a| a.mime_type =~ /image/} - [first_image(article)]
+  end
+    def attachment_noimages(article)
+    article.attachments.select {|a| a.mime_type !~ /image/}
+  end
 end
