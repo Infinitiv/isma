@@ -14,4 +14,11 @@ module ArticlesHelper
     def attachment_noimages(article)
     article.attachments.select {|a| a.mime_type !~ /image/}
   end
+  def attachment_name(attachment)
+    if %r{[.]} =~ attachment.name
+      attachment.name.reverse.from((%r{[.](\W+|\w+)(\W+|\w+)} =~ attachment.name.reverse) + 1).reverse
+    else
+      attachment.name
+    end
+  end
 end
