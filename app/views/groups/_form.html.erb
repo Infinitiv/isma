@@ -12,9 +12,55 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_area :name %>
+    <%= f.label 'Название группы' %><br />
+    <%= f.text_field :name %>
   </div>
+  <div class="field">
+    <%= f.label 'Родительская группа' %>
+    <%= f.select :parent_id, options_for_select= @groups.collect {|p| [t(p.name, :scope => [:groups]), p.id] }, {:include_blank => ''} %>
+  </div>
+<table class='table'>
+<tr>
+<td>
+    <%= f.label 'Сделать администратором?' %>
+</td>
+<td>
+    <%= f.check_box :administrator %>
+</td>
+</tr>
+<tr>
+<td>
+    <%= f.label 'Сделать модератором?' %>
+</td>
+<td>
+    <%= f.check_box :moderator %>
+</td>
+</tr>
+<tr>
+<td>
+    <%= f.label 'Разрешить писать?' %>
+</td>
+<td>
+    <%= f.check_box :writer %>
+</td>
+</tr>
+<tr>
+<td>
+    <%= f.label 'Разрешить читать?' %>
+</td>
+<td>
+    <%= f.check_box :reader %>
+</td>
+</tr>
+<tr>
+<td>
+    <%= f.label 'Разрешить комментировать?' %>
+</td>
+<td>
+    <%= f.check_box :commentator %>
+</td>
+</tr>
+</table>
   <div class="actions">
     <%= f.submit %>
   </div>

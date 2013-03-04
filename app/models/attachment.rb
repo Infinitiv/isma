@@ -1,4 +1,5 @@
 class Attachment < ActiveRecord::Base
+  require 'RMagick'
   belongs_to :article
   attr_accessible :data, :mime_type, :name
   
@@ -6,6 +7,11 @@ class Attachment < ActiveRecord::Base
 	self.article_id = incoming_file[:article_id]
         self.name = incoming_file[:file].original_filename
         self.mime_type = incoming_file[:file].content_type
+	if incoming_file[:file].content_type =~ /image/
+	  img = Magick::Image.read(incoming_file[:file].tempfile.path).first
+	  img.scale!(img.columns > img.rows ? 800 / img.columns.to_f : 800 / img.rows.to_f)
+	  img.write(incoming_file[:file].tempfile.path)
+	end
         self.data = incoming_file[:file].read
     end
 

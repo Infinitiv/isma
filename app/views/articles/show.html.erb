@@ -7,12 +7,13 @@
 <%= render partial: 'attachment_image', collection: attachment_images(@article) %>
 </ul>
 <% end %>
+<a name="attachments"></a>
 <% if attachment_noimages(@article) %>
 <ul>
 <%= render partial: 'attachment_noimage', collection: attachment_noimages(@article) %>
 </ul>
 <% end %>
-
+<% if current_user_moderator? || current_user == @article.user %>
 <%= form_for(@attachment) do |f| %>
   <div class="hidden">
     <%= f.label :article_id %><br />
@@ -26,6 +27,7 @@
     <%= f.submit 'Прикрепить файл' %>
   </div>
 <% end %>
+<% end %>
 	<div>
 	  <% if @comments.count > 0 %>
 	  <div id="comments">
@@ -33,7 +35,7 @@
 	  <%= render @comments %>
 	</div>
 	  <% end %>
-	  <% if @article.commentable? %>
+	  <% if @article.commentable? && current_user_commentator?%>
 	    <%= form_for(@comment) do |f| %>
 	      <div class="hidden">
 		<%= f.label :article_id %><br />

@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
+    @groups = Group.order('name').where(parent_id: nil)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +25,7 @@ class GroupsController < ApplicationController
   # GET /groups/new.json
   def new
     @group = Group.new
+    @groups = Group.order('name').all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +36,7 @@ class GroupsController < ApplicationController
   # GET /groups/1/edit
   def edit
     @group = Group.find(params[:id])
+    @groups = Group.order('name').all
   end
 
   # POST /groups

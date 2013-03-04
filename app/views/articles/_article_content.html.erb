@@ -1,4 +1,4 @@
-<%= link_to(image_tag(attachment_path(first_image(article).id)), attachment_path(first_image(article).id), :rel => "lightbox", :class => "pull-left media-object", :title => first_image(article).name.reverse.from((%r{[.]\w+} =~ first_image(article).name.reverse) + 1).reverse) if first_image(article)%>
+<%= link_to(image_tag(attachment_path(first_image(article).id), :width => '100'), attachment_path(first_image(article).id), :rel => "lightbox", :class => "pull-left media-object thumbnail", :title => first_image(article).name.reverse.from((%r{[.]\w+} =~ first_image(article).name.reverse) + 1).reverse) if first_image(article)%>
 <p>
   <% if controller.action_name == 'show' %>
     <%= sanitize_full(article.content) %>

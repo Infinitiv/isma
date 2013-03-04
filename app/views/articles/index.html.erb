@@ -5,7 +5,7 @@
         <header>
           <h1>Новости</h1>
         </header>
-        <%= link_to 'Новая статья', new_article_path %>
+        <%= link_to('Новая статья', new_article_path) if current_user_writer? %>
 	<%= render partial: 'article', collection: @last_news_articles %>
         <%= link_to 'Архив новостей', "archives/news" %>
         <header>
