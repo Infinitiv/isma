@@ -31,6 +31,9 @@ Isma::Application.routes.draw do
   end
   resources :comments
   resources :attachments
+  
+  match 'attachments/:id/minify_img' => 'attachments#minify_img', :as => :minify_img
+  
   resources :articles
   
   controller :articles do

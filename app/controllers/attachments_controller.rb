@@ -20,11 +20,22 @@ class AttachmentsController < ApplicationController
     end
     
     def destroy
-    @attachment = Attachment.find(params[:id])
-    @attachment.destroy
+	@attachment = Attachment.find(params[:id])
+	@attachment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to :back }
+	respond_to do |format|
+	  format.html { redirect_to :back }
+	end
     end
-  end
+    
+    def minify_img
+        @attachment = Attachment.find(params[:id])
+        send_data thumb(@attachment.data, 150), :filename => @attachment.name, :type => @attachment.mime_type, :disposition => "inline"
+    end
+    
+    private
+    def thumb(image, size)
+      img = Magick::Image.from_blob(image).first
+      img.resize_to_fill!(size).to_blob
+    end
 end

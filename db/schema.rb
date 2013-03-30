@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225191222) do
+ActiveRecord::Schema.define(:version => 20130304173738) do
 
   create_table "article_types", :force => true do |t|
     t.string   "name"
@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(:version => 20130225191222) do
     t.string   "title"
     t.string   "email"
     t.string   "phone"
+    t.binary   "avatar"
+    t.binary   "thumbnail"
   end
 
   create_table "users", :force => true do |t|

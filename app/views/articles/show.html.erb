@@ -2,13 +2,13 @@
   <section id="articles" class="span8">
     <article>
 <%= render partial: 'article', locals: { article: @article } %>
-<% if attachment_images(@article) %>
+<% if attachment_images(@article).count > 0 %>
 <ul class="thumbnails">
 <%= render partial: 'attachment_image', collection: attachment_images(@article) %>
 </ul>
 <% end %>
+<% if attachment_noimages(@article).count > 0 %>
 <a name="attachments"></a>
-<% if attachment_noimages(@article) %>
 <ul>
 <%= render partial: 'attachment_noimage', collection: attachment_noimages(@article) %>
 </ul>
