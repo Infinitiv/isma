@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219162935) do
+ActiveRecord::Schema.define(:version => 20130304173738) do
 
   create_table "article_types", :force => true do |t|
     t.string   "name"
@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(:version => 20130219162935) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.integer  "division_id"
-    t.integer  "permission_id"
+    t.integer  "group_id"
   end
+
+  add_index "articles", ["group_id"], :name => "index_articles_on_group_id"
 
   create_table "attachments", :force => true do |t|
     t.integer  "article_id"
@@ -86,8 +88,14 @@ ActiveRecord::Schema.define(:version => 20130219162935) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "parent_id"
+    t.boolean  "administrator"
+    t.boolean  "moderator"
+    t.boolean  "writer"
+    t.boolean  "reader"
+    t.boolean  "commentator"
   end
 
   create_table "permissions", :force => true do |t|
@@ -127,6 +135,8 @@ ActiveRecord::Schema.define(:version => 20130219162935) do
     t.string   "title"
     t.string   "email"
     t.string   "phone"
+    t.binary   "avatar"
+    t.binary   "thumbnail"
   end
 
   create_table "users", :force => true do |t|

@@ -1,7 +1,9 @@
 <p>
 <%= comment.content %>
+<% if current_user_moderator? || current_user == comment.user %>
   <%= link_to(comment, confirm: 'Уверены?', method: :delete) do %>
     <i class="icon-remove" title="Удалить"></i>
+  <% end %>
   <% end %>
 <p class=postsubscript>Автор:&nbsp
   <%= render :partial => "users/author", :object => comment.user %>

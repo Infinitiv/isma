@@ -1,13 +1,1 @@
-<p class=postscript>
-<p>
-  <%= link_to(edit_article_path(article)) do %>
-    <i class="icon-pencil" title="Редактировать"></i>
-  <% end %>
-  <%= link_to(article, confirm: 'Уверены?', method: :delete) do %>
-    <i class="icon-remove" title="Удалить"></i>
-  <% end %>
-  <% if article.commentable? %>
-    <%= link_to(article_path(article, :anchor => "comments")) do %>
-      <i class="icon-comment" title="Комментарии <%= "(#{article.comments.count})" %>"></i>
-    <% end %>
-  <% end %>
+<hr />

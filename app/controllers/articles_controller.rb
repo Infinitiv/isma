@@ -2,10 +2,17 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @last_news_articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date >= ? or exp_date IS ?) and published = ?", 2, Time.now.to_date, nil, true).limit(5)
-    @anounces_articles = Article.order("updated_at DESC").where("article_type_id = ? and exp_date >= ? and published = ?", 3, Time.now.to_date, true).limit(5)
-    @articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date >= ? or exp_date IS ?) and published = ?", 1, Time.now.to_date, nil, true).limit(10)
-    @personal_articles
+    if current_user.nil?
+      @last_news_articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date >= ? or exp_date IS ?) and published = ?", 2, Time.now.to_date, nil, true).where(group_id: [nil]).limit(5)
+      @anounces_articles = Article.order("updated_at DESC").where("article_type_id = ? and exp_date >= ? and published = ?", 3, Time.now.to_date, true).where(group_id: [nil]).limit(5)
+      @articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date >= ? or exp_date IS ?) and published = ?", 1, Time.now.to_date, nil, true).where(group_id: [nil]).limit(10)
+      @personal_articles      
+    else
+      @last_news_articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date >= ? or exp_date IS ?) and published = ?", 2, Time.now.to_date, nil, true).where(group_id: current_user.groups + current_user.groups.map {|g| g.parent}.select {|g| !g.nil?}.uniq  + [nil]).limit(5)
+      @anounces_articles = Article.order("updated_at DESC").where("article_type_id = ? and exp_date >= ? and published = ?", 3, Time.now.to_date, true).where(group_id: current_user.groups + current_user.groups.map {|g| g.parent}.select {|g| !g.nil?}.uniq  + [nil]).limit(5)
+      @articles = Article.order("updated_at DESC").where("article_type_id = ? and (exp_date >= ? or exp_date IS ?) and published = ?", 1, Time.now.to_date, nil, true).where(group_id: current_user.groups + current_user.groups.map {|g| g.parent}.select {|g| !g.nil?}.uniq  + [nil]).limit(10)
+      @personal_articles
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.atom {render atom: @last_news_articles}
@@ -17,18 +24,12 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article = Article.find(params[:id])
-    if @article.user == current_user
     @comment = Comment.new
     @attachment = Attachment.new
     @comments = @article.comments
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @article }
-    end
-    else
-      respond_to do |format|
-	format.html { redirect_to root_path }
-      end
     end
   end
 
@@ -39,7 +40,7 @@ class ArticlesController < ApplicationController
     @article = Article.new
     @article_types = ArticleType.all
     @divisions = @current_user.divisions
-    @permissions = Permission.all
+    @groups = current_user.groups.uniq + current_user.groups.map {|g| g.parent}.select {|g| !g.nil?}.uniq
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @article }
@@ -51,7 +52,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article_types = ArticleType.all
     @divisions = @article.user.divisions
-    @permissions = Permission.all
+    @groups = current_user.groups.uniq + current_user.groups.map {|g| g.parent}.select {|g| !g.nil?}.uniq
   end
 
   # POST /articles
