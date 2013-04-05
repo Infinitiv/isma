@@ -1,5 +1,6 @@
 <div class="row-fluid">
   <section id="articles" class="span8">
+<%= render partial: 'menus/form' if current_user_administrator? %>
     <article>
 <%= render partial: 'article', locals: { article: @article } %>
 <% if attachment_images(@article).count > 0 %>

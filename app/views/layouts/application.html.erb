@@ -9,10 +9,27 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
   <nav id="up">
 <ul class="nav nav-pills">
-  <li class="active"><%= link_to 'Главная', root_path %>
+
+<% menu_up.each do |k, v| %>
+  <% if v.count > 0 %>
+  <li class="dropdown">
+  <%= link_to (k.title + caret).html_safe, k.url, class: 'dropdown-toggle', "data-toggle" => 'dropdown' %>
+    <ul class="dropdown-menu">
+    <% v.each do |m| %>
+      <li>
+      <%= link_to m.title, m.url %>
+    <% end %>
+    </ul>
+  <% else %>
+    <li>
+    <%= link_to k.title, k.url %>
+  <% end %>
+<% end %>
+</ul>
+<ul class="nav nav-pills">
+  <li class="active"><%= link_to 'Главная', root_path %></li>
       <li><%= link_to 'Об академии', "#" %></li>
   <li class="dropdown">
     <a class="dropdown-toggle"

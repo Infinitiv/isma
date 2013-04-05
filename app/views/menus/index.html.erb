@@ -1,0 +1,22 @@
+<h1>Listing menus</h1>
+<p>
+<%= link_to 'New Menu', new_menu_path %>
+
+<% @menus.each do |k, v| %>
+  <p>
+  <%= link_to k.title, k.url %>
+  <%= link_to(edit_menu_path(k)) do %>
+    <i class="icon-pencil" title="Редактировать"></i>
+  <% end %>
+  <% if v.count > 0 %>
+    <ul>
+    <% v.each do |m| %>
+      <li>
+      <%= link_to m.title, m.url %>
+      <%= link_to(edit_menu_path(m)) do %>
+	<i class="icon-pencil" title="Редактировать"></i>
+      <% end %>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>

@@ -1,0 +1,20 @@
+<%= form_for(@menu, :html => { :class => "form-inline"}) do |f| %>
+  <% if @menu.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@menu.errors.count, "error") %> prohibited this menu from being saved:</h2>
+
+      <ul>
+      <% @menu.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.select :location, options_for_select(['up', 'left', 'down']), :include_blank => true, class: "input-small", placeholder: 'Расположение' %>
+    <%= f.select :parent_id, options_for_select= @parent_menus.collect {|p| [t(p.title, :scope => [:menus]), p.id]}, {:include_blank => true, class: "input-small", placeholder: 'Родитель'} %>
+    <%= f.select :follow_id, options_for_select= @follow_menus.collect {|p| [t(p.title, :scope => [:menus]), p.id]}, {:include_blank => true, class: "input-small", placeholder: 'Следует за...'} %>
+    <%= f.text_field :title, class: "input-small", placeholder: 'Название' %>
+    <%= f.text_field :url, value: @url, class: "input-small", placeholder: 'Адрес' %>
+    <%= f.submit %>
+<% end %>
