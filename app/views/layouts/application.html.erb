@@ -175,6 +175,21 @@
       </section>
   </div>
 <footer>
+  <% menu_down.each do |k, v| %>
+  <nav class="pull-left">
+    <ul class="nav nav-list">
+      <% if v.count > 0 %>
+      <li class="nav-header">
+      <%= k.title %>
+	<% v.each do |m| %>
+	  <li>
+	    <%= link_to m.title, m.url, target: 'blank' %>
+	<% end %>
+      <% end %>
+    </ul>    
+  </nav>
+  <% end %>
+<p class="clearfix">
 <p>&copy; <%= details["Сокращенное наименование академии"] %>, 2013
 <address><%= details["Адрес академии"] %></address>
 </footer>
