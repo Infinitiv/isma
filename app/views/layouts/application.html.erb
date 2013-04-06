@@ -158,21 +158,16 @@
   <div class="container row-fluid">
       <nav class="span2">
         <ul class="nav nav-list">
-          <li class="nav-header">Администрация</li>
-            <li><%= link_to 'Ученый совет', "/divisions/1" %></li>
-            <li><%= link_to 'Учебная работа', "/divisions/12" %></li>
-            <li><%= link_to 'Научная работа', "#" %></li>
-            <li><%= link_to 'Воспитательная работа', "#" %></li>
-            <li><%= link_to 'Клиническая работа', "#" %></li>
-            <li><%= link_to 'Административно-хозяйственная работа', "#" %></li>
-            <li><%= link_to 'Подразделения', "#" %></li>
-          <li class="nav-header">Факультеты</li>
-            <li><%= link_to 'Лечебный', "#" %></li>
-            <li><%= link_to 'Педиатрический', "#" %></li>
-            <li><%= link_to 'Стоматологический', "#" %></li>
-            <li><%= link_to 'Менеджмента и высшего сестринского образования', "#" %></li>
-            <li><%= link_to 'Послевузовского образования', "#" %></li>
-            <li><%= link_to 'Дополнительного образования', "#" %></li>
+	<% menu_left.each do |k, v| %>
+	  <% if v.count > 0 %>
+	  <li class="nav-header hidden">
+	  <%= k.title %>
+	    <% v.each do |m| %>
+	      <li>
+		<%= link_to m.title, m.url %>
+	    <% end %>
+	  <% end %>
+	<% end %>
         </ul>    
       </nav>
       <section class="span10">

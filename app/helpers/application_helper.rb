@@ -38,6 +38,22 @@ module ApplicationHelper
     menu_up
   end
   
+  def menu_left
+    menu_left = Hash.new
+    Menu.where(:parent_id => nil, :location => 'left').each do |m|
+      menu_left[m] = Menu.where(parent_id: m.id).order(:follow_id)
+    end
+    menu_left
+  end
+  
+  def menu_down
+    menu_down = Hash.new
+    Menu.where(:parent_id => nil, :location => 'down').each do |m|
+      menu_down[m] = Menu.where(parent_id: m.id).order(:follow_id)
+    end
+    menu_down
+  end
+  
   def caret
     "<b class=caret></b>"
   end
