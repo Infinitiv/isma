@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304173738) do
+ActiveRecord::Schema.define(:version => 20130331143719) do
 
   create_table "article_types", :force => true do |t|
     t.string   "name"
@@ -96,6 +96,16 @@ ActiveRecord::Schema.define(:version => 20130304173738) do
     t.boolean  "writer"
     t.boolean  "reader"
     t.boolean  "commentator"
+  end
+
+  create_table "menus", :force => true do |t|
+    t.string   "location"
+    t.integer  "parent_id"
+    t.integer  "follow_id"
+    t.string   "title"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "permissions", :force => true do |t|

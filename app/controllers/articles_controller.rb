@@ -23,6 +23,10 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @menu = Menu.new
+    @parent_menus = Menu.where(parent_id: nil)
+    @follow_menus = Menu.all
+    @url = request.fullpath
     @article = Article.find(params[:id])
     @comment = Comment.new
     @attachment = Attachment.new

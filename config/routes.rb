@@ -1,4 +1,7 @@
 Isma::Application.routes.draw do
+  resources :menus
+
+
   controller :archives do
     get '/archives/articles' => :articles
     get '/archives/news' => :news

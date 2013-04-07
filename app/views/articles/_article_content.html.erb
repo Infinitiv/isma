@@ -1,12 +1,12 @@
 <%= link_to(image_tag(minify_img_path(first_image(article).id), :width => '100'), attachment_path(first_image(article).id), :rel => "lightbox", :class => "pull-left media-object thumbnail", :title => attachment_name(first_image(article))) if first_image(article) %>
 <p>
   <% if controller.action_name == 'show' %>
-    <%= sanitize_full(article.content) %>
+    <%= sanitize_full(markdown(article.content)) %>
   <% else %>
     <% if article.content.length > 255 %>
-      <%= sanitize_truncate(article.content) %>
+      <%= sanitize_truncate(markdown(article.content)) %>
       <%= link_to ' Читать дальше', article %>
     <% else %>
-      <%= sanitize_full(article.content) %>
+      <%= sanitize_full(markdown(article.content)) %>
     <% end %>
   <% end %>
