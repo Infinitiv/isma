@@ -4,7 +4,6 @@ class Attachment < ActiveRecord::Base
   attr_accessible :data, :mime_type, :name
   
     def uploaded_file=(incoming_file)
-	self.article_id = incoming_file[:article_id]
         self.name = incoming_file[:file].original_filename
         self.mime_type = incoming_file[:file].content_type
 	if incoming_file[:file].content_type =~ /image/

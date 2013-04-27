@@ -15,11 +15,7 @@
 </ul>
 <% end %>
 <% if current_user_moderator? || current_user == @article.user %>
-<%= form_for(@attachment) do |f| %>
-  <div class="hidden">
-    <%= f.label :article_id %><br />
-    <%= f.number_field :article_id, :value => @article.id %>
-  </div>  
+<%= form_for(@attachment, :url => article_attachments_path(@article)) do |f| %>
   <div class="filefild">
     <%= f.label 'Прикрепить файл' %>
     <%= f.file_field :file %>
@@ -37,11 +33,7 @@
 	</div>
 	  <% end %>
 	  <% if @article.commentable? && current_user_commentator?%>
-	    <%= form_for(@comment) do |f| %>
-	      <div class="hidden">
-		<%= f.label :article_id %><br />
-		<%= f.number_field :article_id, :value => @article.id %>
-	      </div>
+	    <%= form_for(@comment, :url => article_comments_path(@article)) do |f| %>
 	      <div class="hidden">
 		<%= f.number_field :user_id, :value => 1 %>
 	      </div>

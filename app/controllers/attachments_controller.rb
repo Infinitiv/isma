@@ -9,10 +9,11 @@ class AttachmentsController < ApplicationController
 
         @attachment = Attachment.new
         @attachment.uploaded_file = params[:attachment]
+	@attachment.article_id = params[:article_id]
 
         if @attachment.save
             flash[:notice] = "Thank you for your submission..."
-            redirect_to article_path(@attachment.article.id)
+            redirect_to :back
         else
             flash[:error] = "There was a problem submitting your attachment."
             render :action => "new"

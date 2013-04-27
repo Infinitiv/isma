@@ -32,12 +32,13 @@ Isma::Application.routes.draw do
     post 'login' => :create
     get 'logout' => :destroy
   end
-  resources :comments
-  resources :attachments
+  resources :articles do
+    resources :attachments
+    resources :comments
+  end
   
   match 'attachments/:id/minify_img' => 'attachments#minify_img', :as => :minify_img
   
-  resources :articles
   
   controller :articles do
     get :feed

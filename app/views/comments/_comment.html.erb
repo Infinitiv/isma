@@ -1,7 +1,7 @@
 <p>
 <%= comment.content %>
 <% if current_user_moderator? || current_user == comment.user %>
-  <%= link_to(comment, confirm: 'Уверены?', method: :delete) do %>
+  <%= link_to(article_comment_path(comment.article, comment), confirm: 'Уверены?', method: :delete) do %>
     <i class="icon-remove" title="Удалить"></i>
   <% end %>
   <% end %>
