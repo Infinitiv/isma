@@ -1,0 +1,4 @@
+$('#comments').html("<%=j render @comments %>");
+var cc = "Комментарии (" + $('#comments p').length/2 + ")";
+$('i.icon-comment').attr("title", cc);
+$('#comment_content').val('');

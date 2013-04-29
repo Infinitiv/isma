@@ -42,11 +42,14 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
     @comment.article_id = params[:article_id]
+    @article = Article.find(params[:article_id])
+    @comments = @article.comments
 
     respond_to do |format|
       if @comment.save
         format.html { redirect_to :back, notice: 'Comment was successfully created.' }
         format.json { render json: @comment, status: :created, location: @comment }
+	format.js
       else
         format.html { render action: "new" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -75,10 +78,13 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
+    @article = Article.find(params[:article_id])
+    @comments = @article.comments
 
     respond_to do |format|
       format.html { redirect_to :back }
       format.json { head :no_content }
+      format.js
     end
   end
 end

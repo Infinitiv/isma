@@ -25,15 +25,14 @@
   </div>
 <% end %>
 <% end %>
-	<div>
-	  <% if @comments.count > 0 %>
 	  <div id="comments">
-	  <a name="comments"></a>
-	  <%= render @comments %>
-	</div>
+	  <% if @comments.count > 0 %>
+	    <a name="comments"></a>
+	    <%= render @comments %>
 	  <% end %>
+	  </div>
 	  <% if @article.commentable? && current_user_commentator?%>
-	    <%= form_for(@comment, :url => article_comments_path(@article)) do |f| %>
+	    <%= form_for(@comment, :url => article_comments_path(@article), remote: true) do |f| %>
 	      <div class="hidden">
 		<%= f.number_field :user_id, :value => 1 %>
 	      </div>
@@ -41,11 +40,10 @@
 		<%= f.text_area :content, :rows => 3 %>
 	      </div>
 	      <div class="actions">
-		<%= f.submit %>
+		<%= f.submit "Добавить комментарий"%>
 	      </div>
 	    <% end %>
 	  <% end %>
-	</div>
     </article>
   </section>
   <section id="division_info" class="span4">
