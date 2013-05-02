@@ -1,5 +1,9 @@
 body {
   background-color: rgb(221, 217, 208);
+  background-image: url("/assets/1_3.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
 }
 .session {
   float : right;
@@ -17,15 +21,10 @@ nav#up {
   margin-top : 2em;
   width : 95%;
   clear : both;
-  border-radius : 10px;
-  border : 1px solid gray;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  padding : 1em;
-  background-color: rgb(255, 255, 255);
 }
 footer {
   margin : auto;
-  width : 95%;
+  width : 100%;
   margin-top : 2em;
 }
 body > header > h1 {
@@ -84,4 +83,15 @@ section > header > h1 {
 .title {
   font-size : 1.4em;
   color : rgb(175, 35, 35);
+}
+#center, #right, nav#left {
+  border-radius : 10px;
+  border : 1px solid gray;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  padding : 1em;
+  background-color: rgba(237,237,237,0.9);
+}
+body > header, footer {
+  padding : 1em;
+  background-color: rgba(237,237,237,0.9);
 }
